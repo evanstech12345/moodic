@@ -11,9 +11,11 @@ import { useNavigation } from '@react-navigation/native';
 
 function DetailsScreen() {
   return (
+  <NavigationContainer> 
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
     </View>
+    </NavigationContainer>
   );
 }
 
@@ -35,11 +37,11 @@ function App() {
 
 
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen() {
   const textPress = () => console.log('text pressed')
-  // const navigation = useNavigation(); 
+  const navigation = useNavigation(); 
   return (
-    
+    <NavigationContainer>
     <SafeAreaView style={styles.container}>
       {/* <Text onPress={textPress}>Welcome to Moodic</Text> */}
       <Image 
@@ -77,6 +79,7 @@ export default function HomeScreen({navigation}) {
         </TouchableOpacity>
       <StatusBar style="auto" />
     </SafeAreaView>
+    </NavigationContainer>
   );
 }
 
