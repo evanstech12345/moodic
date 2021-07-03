@@ -3,83 +3,49 @@ import React from 'react';
 import { Platform ,Alert ,Button, StyleSheet, Text,TouchableWithoutFeedback, View, Image,  SafeAreaView, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+//import { useNavigation } from '@react-navigation/native';
 // import { navigationRef } from './RootNavigation';
 
 
 
+function HomeScreen({ navigation }) {
+  return (
+    <SafeAreaView style={styles.container}>
+    <TouchableOpacity
+        style={styles.happyButton}
+        onPress={() => navigation.navigate('Details')}
+        >
+          <Text style={styles.textHappy} >Feeling Happy</Text>
+        </TouchableOpacity>
+    </SafeAreaView>
+  )}
+
 
 function DetailsScreen() {
   return (
-  <NavigationContainer> 
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
     </View>
-    </NavigationContainer>
   );
 }
 
 const Stack = createStackNavigator();
 
 
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
 
 
 
 
-
-export default function HomeScreen() {
+export default function App() {
   const textPress = () => console.log('text pressed')
-  const navigation = useNavigation(); 
+  //const navigation = useNavigation(); 
   return (
     <NavigationContainer>
-    <SafeAreaView style={styles.container}>
-      {/* <Text onPress={textPress}>Welcome to Moodic</Text> */}
-      <Image 
-      style={styles.logo}
-      source={require('./assets/logo.jpeg')} />
-      {/* <TouchableOpacity
-        style={styles.happyButton}
-        onPress={() => navigation.navigate('Details')}
-        >
-          <Text style={styles.textHappy} >Feeling Happy</Text>
-        </TouchableOpacity> */}
-        <Button 
-        title="Feeling Happy" 
-        style={styles.happyButton}
-        onPress={() => navigation.navigate('Details')}
-        backgroundColor="blue"
-        />
-        <TouchableOpacity
-        style={styles.sadButton}
-        onPress={() => console.log('your happy')}
-        >
-          <Text style={styles.textSad} >Feeling Sad</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-        style={styles.madButton}
-        onPress={() => console.log('your happy')}
-        >
-          <Text style={styles.textMad} >Feeling Mad</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-        style={styles.stresButton}
-        onPress={() => console.log('your happy')}
-        >
-          <Text style={styles.textStres} >Feeling Stressed</Text>
-        </TouchableOpacity>
-      <StatusBar style="auto" />
-    </SafeAreaView>
-    </NavigationContainer>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Details" component={DetailsScreen} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
