@@ -4,8 +4,8 @@ import { Platform ,Alert ,Button, StyleSheet, Text,TouchableWithoutFeedback, Vie
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Audio } from 'expo-av';
-
-
+import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 
 
@@ -60,22 +60,68 @@ class HappyScreen extends Component {
     const status = {
       shouldPlay: false
     }
-    this.sound.loadAsync(require('./assets/childrens-picnic.mp3'),status, false);
+    this.sound.loadAsync(require('./assets/happy/childrens-picnic.mp3'),status, false);
   }
   playSound() {
     this.sound.playAsync();
   }
+
+  handleAudioPress = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.loadAsync(require('./assets/happy/childrens-picnic.mp3'), {shouldPlay: true});
+    this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+  }
+
+  handleAudioPause = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.unloadAsync(require('./assets/happy/childrens-picnic.mp3'), {shouldPlay: true});
+    //this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+    this.state.playBackObj.setStatusAsync({shouldPlay: false})
+  }
+
+
+
+  
+  
+
+
+
+
+
+constructor(props) {
+  super(props)
+  this.state = {
+    playBackObj: null,
+  }
+}
   
   render() {
   return (
     <SafeAreaView style={styles.container}>
-      <Button 
-      title='play sound'
-      color='white'
-      onPress={this.playSound.bind(this)}
+      <Text>A Piece Of Heaven</Text>
+      {/* <TouchableOpacity */}
+      {/* style={styles.btnmusic1}
+      onPress={this.playSound.bind(this)}> */}
+      {/* </TouchableOpacity> */}
+      <Image 
+       //source={require('')} 
       />
+      <TouchableWithoutFeedback onPress={this.handleAudioPress}>
+      <AntDesign 
+      name="caretright" size={30} color="white" 
+      // onPress={this.playSound.bind(this)}  
+      style={styles.btnmusic1}
+      ></AntDesign> 
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={this.handleAudioPause}>
+      <Ionicons 
+      name="ios-pause" size={37} color="white" 
+       
+      style={styles.btnmusic1Pause}
+      />
+      </TouchableWithoutFeedback>
 
-      <StatusBar style="auto" />
+    <StatusBar style="auto" />
     </SafeAreaView>
     
   );
@@ -108,6 +154,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+ 
+  btnmusic1: {
+    bottom: 180,
+    right: 100
+    
+  },
+  btnmusic1Pause: {
+    bottom: 214,
+    right: 50
   },
   logo: {
     width: 300,
