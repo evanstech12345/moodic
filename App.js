@@ -1,32 +1,85 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { Component } from 'react';
 import { Platform ,Alert ,Button, StyleSheet, Text,TouchableWithoutFeedback, View, Image,  SafeAreaView, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-//import { useNavigation } from '@react-navigation/native';
-// import { navigationRef } from './RootNavigation';
+import { Audio } from 'expo-av';
+
+
 
 
 
 function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
+      <Image 
+      style={styles.logo}
+      source={require('./assets/logo.jpeg')} />
     <TouchableOpacity
         style={styles.happyButton}
-        onPress={() => navigation.navigate('Details')}
+        onPress={() => navigation.navigate('Happy')}
         >
           <Text style={styles.textHappy} >Feeling Happy</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+        style={styles.sadButton}
+        onPress={() => console.log('your happy')}
+        >
+          <Text style={styles.textSad} >Feeling Sad</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+        style={styles.madButton}
+        onPress={() => console.log('your happy')}
+        >
+          <Text style={styles.textMad} >Feeling Mad</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+        style={styles.stresButton}
+        onPress={() => console.log('your happy')}
+        >
+          <Text style={styles.textStres} >Feeling Stressed</Text>
+        </TouchableOpacity>
+        <StatusBar style="auto" />
     </SafeAreaView>
   )}
 
 
-function DetailsScreen() {
+class HappyScreen extends Component {
+  async componentDidMount() {
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+      shouldDuckAndroid: true,
+      staysActiveInBackground: true,
+      playThroughEarpieceAndroid: true,
+    });
+
+    this.sound = new Audio.Sound();
+    const status = {
+      shouldPlay: false
+    }
+    this.sound.loadAsync(require('./assets/ES_Blitz - Ballpoint.mp3'),status, false);
+  }
+  playSound() {
+    this.sound.playAsync();
+  }
+  
+  render() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Button 
+      title='play sound'
+      color='white'
+      onPress={this.playSound.bind(this)}
+      />
+
+      <StatusBar style="auto" />
+    </SafeAreaView>
+    
   );
+}
 }
 
 const Stack = createStackNavigator();
@@ -43,7 +96,7 @@ export default function App() {
     <NavigationContainer>
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen name="Happy" component={HappyScreen} />
     </Stack.Navigator>
   </NavigationContainer>
   );
@@ -59,7 +112,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 300,
     height: 200,
-    bottom: 220
+    bottom: 200
   },
   happyButton: {
     //width: 300,
