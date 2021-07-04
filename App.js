@@ -60,7 +60,7 @@ class HappyScreen extends Component {
     const status = {
       shouldPlay: false
     }
-    this.sound.loadAsync(require('./assets/ES_Blitz - Ballpoint.mp3'),status, false);
+    this.sound.loadAsync(require('./assets/childrens-picnic.mp3'),status, false);
   }
   playSound() {
     this.sound.playAsync();
