@@ -80,6 +80,32 @@ class HappyScreen extends Component {
   }
 
 
+  handleAudioPressVibe = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.loadAsync(require('./assets/happy/GoodVibe.mp3'), {shouldPlay: true});
+    this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+  }
+
+  handleAudioPauseVibe = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.unloadAsync(require('./assets/happy/GoodVibe.mp3'), {shouldPlay: true});
+    //this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+    this.state.playBackObj.setStatusAsync({shouldPlay: false})
+  }
+
+  handleAudioPressJoy = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.loadAsync(require('./assets/happy/happy_joyful_children.mp3'), {shouldPlay: true});
+    this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+  }
+
+  handleAudioPauseJoy = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.unloadAsync(require('./assets/happy/happy_joyful_children.mp3'), {shouldPlay: true});
+    //this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+    this.state.playBackObj.setStatusAsync({shouldPlay: false})
+  }
+
 
   
   
@@ -98,13 +124,14 @@ constructor(props) {
   render() {
   return (
     <SafeAreaView style={styles.container}>
-      <Text>A Piece Of Heaven</Text>
+      <Text style={styles.pHeav}>A Piece Of Heaven</Text>
       {/* <TouchableOpacity */}
       {/* style={styles.btnmusic1}
       onPress={this.playSound.bind(this)}> */}
       {/* </TouchableOpacity> */}
       <Image 
-       //source={require('')} 
+      style={styles.heavenImg}
+       source={require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/a-peice-heav.jpeg')} 
       />
       <TouchableWithoutFeedback onPress={this.handleAudioPress}>
       <AntDesign 
@@ -120,7 +147,40 @@ constructor(props) {
       style={styles.btnmusic1Pause}
       />
       </TouchableWithoutFeedback>
-
+      {/* GoodVibe */}
+      <Image style={styles.vibeImg} source={require('//opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/goodVibesOn.jpg')}/>
+      <Text style={styles.goodVibeText}>Good Vibes</Text>
+      <TouchableWithoutFeedback onPress={this.handleAudioPressVibe}>
+      <AntDesign 
+      name="caretright" size={30} color="white" 
+      // onPress={this.playSound.bind(this)}  
+      style={styles.btnmusicVibe}
+      ></AntDesign> 
+  </TouchableWithoutFeedback>
+  <TouchableWithoutFeedback onPress={this.handleAudioPauseVibe}>
+      <Ionicons 
+      name="ios-pause" size={37} color="white" 
+       
+      style={styles.btnmusic1PauseVibe}
+      />
+      </TouchableWithoutFeedback>
+      {/*happy_joy*/}
+      <Image style={styles.joyImg} source={require('./assets/joy.jpeg')}/>
+      <Text style={styles.joyText}>Happy Joy</Text>
+      <TouchableWithoutFeedback onPress={this.handleAudioPressJoy}>
+      <AntDesign 
+      name="caretright" size={30} color="white" 
+      // onPress={this.playSound.bind(this)}  
+      style={styles.btnmusicJoy}
+      ></AntDesign> 
+  </TouchableWithoutFeedback>
+  <TouchableWithoutFeedback onPress={this.handleAudioPauseJoy}>
+      <Ionicons 
+      name="ios-pause" size={37} color="white" 
+       
+      style={styles.btnmusic1PauseJoy}
+      />
+      </TouchableWithoutFeedback>
     <StatusBar style="auto" />
     </SafeAreaView>
     
@@ -155,15 +215,70 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  btnmusicJoy: {
+    color: '#2A8DE3',
+    top: 10,
+    right: 40
+  },
+  btnmusic1PauseJoy: {
+    color: '#2A8DE3',
+    bottom: 25,
+  },
+  joyText: {
+    top: 110,
+    right: 120,
+    fontSize: 20,
+    color: '#2A8DE3'
+  },
+  joyImg: {
+    height: 110,
+    width: 110,
+    right: 120,
+    top: 100
+  },
+  vibeImg: {
+    height: 110,
+    width: 110,
+    right: 120,
+    bottom: 10
+  },
+  goodVibeText: {
+    color: '#2A8DE3',
+    fontSize: 20,
+    right: 110
+  },
+  btnmusicVibe: {
+    bottom: 120,
+    right: 30,
+    color: '#2A8DE3'
+  },
+  btnmusic1PauseVibe: {
+    bottom: 154,
+    left: 5,
+    color: '#2A8DE3'
+  },
+  pHeav: {
+    top: 45,
+    right: 110,
+    color: '#2A8DE3',
+    fontSize: 20
+  },
+  heavenImg: {
+    height: 110,
+    width: 110,
+    right: 120,
+    bottom: 100
+  },
  
   btnmusic1: {
     bottom: 180,
-    right: 100
-    
+    right: 30,
+    color: '#2A8DE3'
   },
   btnmusic1Pause: {
     bottom: 214,
-    right: 50
+    left: 5,
+    color: '#2A8DE3'
   },
   logo: {
     width: 300,
