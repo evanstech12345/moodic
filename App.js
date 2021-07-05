@@ -234,42 +234,42 @@ class SadScreen extends Component {
     this.sound.playAsync();
   }
 
-  handleAudioPress = async audio => {
+  handleAudioPressTalk = async audio => {
     const playBackObj = new Audio.Sound()
-    const status = await playBackObj.loadAsync(require('./assets/happy/childrens-picnic.mp3'), {shouldPlay: true});
+    const status = await playBackObj.loadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/sad/TalkSoon.mp3'), {shouldPlay: true});
     this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
   }
 
-  handleAudioPause = async audio => {
+  handleAudioPauseTalk = async audio => {
     const playBackObj = new Audio.Sound()
-    const status = await playBackObj.unloadAsync(require('./assets/happy/childrens-picnic.mp3'), {shouldPlay: true});
+    const status = await playBackObj.unloadAsync(require('//opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/sad/TalkSoon.mp3'), {shouldPlay: true});
     //this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
     this.state.playBackObj.setStatusAsync({shouldPlay: false})
   }
 
 
-  handleAudioPressVibe = async audio => {
+  handleAudioPressRainy = async audio => {
     const playBackObj = new Audio.Sound()
-    const status = await playBackObj.loadAsync(require('./assets/happy/GoodVibe.mp3'), {shouldPlay: true});
+    const status = await playBackObj.loadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/sad/rainyDay.mp3'), {shouldPlay: true});
     this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
   }
 
-  handleAudioPauseVibe = async audio => {
+  handleAudioPauseRainy = async audio => {
     const playBackObj = new Audio.Sound()
-    const status = await playBackObj.unloadAsync(require('./assets/happy/GoodVibe.mp3'), {shouldPlay: true});
+    const status = await playBackObj.unloadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/sad/rainyDay.mp3'), {shouldPlay: true});
     //this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
     this.state.playBackObj.setStatusAsync({shouldPlay: false})
   }
 
-  handleAudioPressJoy = async audio => {
+  handleAudioPressRedemption = async audio => {
     const playBackObj = new Audio.Sound()
-    const status = await playBackObj.loadAsync(require('./assets/happy/happy_joyful_children.mp3'), {shouldPlay: true});
+    const status = await playBackObj.loadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/sad/redemption.wav'), {shouldPlay: true});
     this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
   }
 
-  handleAudioPauseJoy = async audio => {
+  handleAudioPauseRedemption = async audio => {
     const playBackObj = new Audio.Sound()
-    const status = await playBackObj.unloadAsync(require('./assets/happy/happy_joyful_children.mp3'), {shouldPlay: true});
+    const status = await playBackObj.unloadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/sad/redemption.wav'), {shouldPlay: true});
     //this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
     this.state.playBackObj.setStatusAsync({shouldPlay: false})
   }
@@ -291,23 +291,23 @@ constructor(props) {
   render() {
     return(
       <SafeAreaView style={styles.container}>
-          <Text style={styles.pHeav}>A Piece Of Heaven</Text>
+          <Text style={styles.pHeav}>Talk Soon</Text>
       {/* <TouchableOpacity */}
       {/* style={styles.btnmusic1}
       onPress={this.playSound.bind(this)}> */}
       {/* </TouchableOpacity> */}
       <Image 
       style={styles.heavenImg}
-       source={require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/a-peice-heav.jpeg')} 
+       source={require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/talkSoon.jpeg')} 
       />
-      <TouchableWithoutFeedback onPress={this.handleAudioPress}>
+      <TouchableWithoutFeedback onPress={this.handleAudioPressTalk}>
       <AntDesign 
       name="caretright" size={30} color="white" 
       // onPress={this.playSound.bind(this)}  
       style={styles.btnmusic1}
       ></AntDesign> 
       </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={this.handleAudioPause}>
+      <TouchableWithoutFeedback onPress={this.handleAudioPauseTalk}>
       <Ionicons 
       name="ios-pause" size={37} color="white" 
        
@@ -315,16 +315,16 @@ constructor(props) {
       />
       </TouchableWithoutFeedback>
       {/* GoodVibe */}
-      <Image style={styles.vibeImg} source={require('//opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/goodVibesOn.jpg')}/>
-      <Text style={styles.goodVibeText}>Good Vibes</Text>
-      <TouchableWithoutFeedback onPress={this.handleAudioPressVibe}>
+      <Image style={styles.vibeImg} source={require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/rainyDay.png')}/>
+      <Text style={styles.goodVibeText}>Rainy Day</Text>
+      <TouchableWithoutFeedback onPress={this.handleAudioPressRainy}>
       <AntDesign 
       name="caretright" size={30} color="white" 
       // onPress={this.playSound.bind(this)}  
       style={styles.btnmusicVibe}
       ></AntDesign> 
   </TouchableWithoutFeedback>
-  <TouchableWithoutFeedback onPress={this.handleAudioPauseVibe}>
+  <TouchableWithoutFeedback onPress={this.handleAudioPauseRainy}>
       <Ionicons 
       name="ios-pause" size={37} color="white" 
        
@@ -332,16 +332,16 @@ constructor(props) {
       />
       </TouchableWithoutFeedback>
       {/*happy_joy*/}
-      <Image style={styles.joyImg} source={require('./assets/joy.jpeg')}/>
-      <Text style={styles.joyText}>Happy Joy</Text>
-      <TouchableWithoutFeedback onPress={this.handleAudioPressJoy}>
+      <Image style={styles.joyImg} source={require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/redemptionimg.png')}/>
+      <Text style={styles.joyText}>Redemption</Text>
+      <TouchableWithoutFeedback onPress={this.handleAudioPressRedemption}>
       <AntDesign 
       name="caretright" size={30} color="white" 
       // onPress={this.playSound.bind(this)}  
       style={styles.btnmusicJoy}
       ></AntDesign> 
   </TouchableWithoutFeedback>
-  <TouchableWithoutFeedback onPress={this.handleAudioPauseJoy}>
+  <TouchableWithoutFeedback onPress={this.handleAudioPauseRedemption}>
       <Ionicons 
       name="ios-pause" size={37} color="white" 
        
