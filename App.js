@@ -29,7 +29,7 @@ function HomeScreen({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
         style={styles.madButton}
-        onPress={() => console.log('your happy')}
+        onPress={() => navigation.navigate('Mad')}
         >
           <Text style={styles.textMad} >Feeling Mad</Text>
         </TouchableOpacity>
@@ -204,6 +204,7 @@ export default function App() {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Happy" component={HappyScreen} />
       <Stack.Screen name="Sad" component={SadScreen} />
+      <Stack.Screen name="Mad" component={MadScreen} />
     </Stack.Navigator>
   </NavigationContainer>
   );
@@ -342,6 +343,150 @@ constructor(props) {
       ></AntDesign> 
   </TouchableWithoutFeedback>
   <TouchableWithoutFeedback onPress={this.handleAudioPauseRedemption}>
+      <Ionicons 
+      name="ios-pause" size={37} color="white" 
+       
+      style={styles.btnmusic1PauseJoy}
+      />
+      </TouchableWithoutFeedback>
+      <StatusBar style="auto" />
+    </SafeAreaView>
+    );
+  }
+}
+
+
+
+class MadScreen extends Component {
+  async componentDidMount() {
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+      shouldDuckAndroid: true,
+      staysActiveInBackground: true,
+      playThroughEarpieceAndroid: true,
+    });
+
+    this.sound = new Audio.Sound();
+    const status = {
+      shouldPlay: false
+    }
+    this.sound.loadAsync(require('./assets/happy/childrens-picnic.mp3'),status, false);
+  }
+  playSound() {
+    this.sound.playAsync();
+  }
+
+  handleAudioPressGot = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.loadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/mad/GotIt.mp3'), {shouldPlay: true});
+    this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+  }
+
+  handleAudioPauseGot = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.unloadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/mad/GotIt.mp3'), {shouldPlay: true});
+    //this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+    this.state.playBackObj.setStatusAsync({shouldPlay: false})
+  }
+
+
+  handleAudioPressWorship = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.loadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/mad/Worship.mp3'), {shouldPlay: true});
+    this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+  }
+
+  handleAudioPauseWorship = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.unloadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/mad/Worship.mp3'), {shouldPlay: true});
+    //this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+    this.state.playBackObj.setStatusAsync({shouldPlay: false})
+  }
+
+  handleAudioPressMad = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.loadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/mad/MAD.wav'), {shouldPlay: true});
+    this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+  }
+
+  handleAudioPauseMad = async audio => {
+    const playBackObj = new Audio.Sound()
+    const status = await playBackObj.unloadAsync(require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/mad/MAD.wav'), {shouldPlay: true});
+    //this.setState({...this.state, playBackObj: playBackObj, soundObj: status})
+    this.state.playBackObj.setStatusAsync({shouldPlay: false})
+  }
+
+
+  
+  
+
+
+
+
+
+constructor(props) {
+  super(props)
+  this.state = {
+    playBackObj: null,
+  }
+}
+  render() {
+    return(
+      <SafeAreaView style={styles.container}>
+          <Text style={styles.pHeav}>Got It</Text>
+      {/* <TouchableOpacity */}
+      {/* style={styles.btnmusic1}
+      onPress={this.playSound.bind(this)}> */}
+      {/* </TouchableOpacity> */}
+      <Image 
+      style={styles.heavenImg}
+       source={require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/GotIT.png')} 
+      />
+      <TouchableWithoutFeedback onPress={this.handleAudioPressGot}>
+      <AntDesign 
+      name="caretright" size={30} color="white" 
+      // onPress={this.playSound.bind(this)}  
+      style={styles.btnmusic1}
+      ></AntDesign> 
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={this.handleAudioPauseGot}>
+      <Ionicons 
+      name="ios-pause" size={37} color="white" 
+       
+      style={styles.btnmusic1Pause}
+      />
+      </TouchableWithoutFeedback>
+      {/* GoodVibe */}
+      <Image style={styles.vibeImg} source={require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/worship.png')}/>
+      <Text style={styles.goodVibeText}>Worship</Text>
+      <TouchableWithoutFeedback onPress={this.handleAudioPressWorship}>
+      <AntDesign 
+      name="caretright" size={30} color="white" 
+      // onPress={this.playSound.bind(this)}  
+      style={styles.btnmusicVibe}
+      ></AntDesign> 
+  </TouchableWithoutFeedback>
+  <TouchableWithoutFeedback onPress={this.handleAudioPauseWorship}>
+      <Ionicons 
+      name="ios-pause" size={37} color="white" 
+       
+      style={styles.btnmusic1PauseVibe}
+      />
+      </TouchableWithoutFeedback>
+      {/*happy_joy*/}
+      <Image style={styles.joyImg} source={require('/opt/homebrew/Caskroom/miniforge/base/envs/music_app/music_app/moodic/assets/mad.png')}/>
+      <Text style={styles.joyText}>MAD</Text>
+      <TouchableWithoutFeedback onPress={this.handleAudioPressMad}>
+      <AntDesign 
+      name="caretright" size={30} color="white" 
+      // onPress={this.playSound.bind(this)}  
+      style={styles.btnmusicJoy}
+      ></AntDesign> 
+  </TouchableWithoutFeedback>
+  <TouchableWithoutFeedback onPress={this.handleAudioPauseMad}>
       <Ionicons 
       name="ios-pause" size={37} color="white" 
        
